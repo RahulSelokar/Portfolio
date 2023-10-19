@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+        header {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .youtube-logo {
+            font-size: 25px;
+            padding: 2px;
+            margin-left: 30px;
+        }
+        .search {
+            width: 500px;
+            border: 1px solid gray;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            box-shadow: 1px 1.5px #e8e5e5;
+            padding: 5px;
+        }
+        .bi-search {
+            border: 1px solid grey;
+            padding: 6.5px;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-left: -5px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            background-color: #F0F0F0;
+        }
+        .bi-mic-fill {
+            font-size: 20px;
+            padding: 5px;
+            border: 1px solid white;
+            border-radius: 20px;
+            margin-left: 10px;
+            padding-left: 9px;
+            padding-right: 9px;
+            background-color: #F0F0F0;
+        }
+        .search-left-panel span{
+            font-size: 20px;
+            padding-left: 20px;
+            padding-right: 15px;
+        }
+        section {
+            display: grid;
+            grid-template-columns: 2fr 9fr;
+        }
+        ul {
+            list-style: none;
+        }
+        li {
+            padding: 10px;
+            display: flex;
+            font-size: 17px;
+            width: 200px;
+            margin-left: -25px;
+        }
+        li span {
+            margin-left: 20px;
+        }
+        .channel {
+            display: grid;
+            grid-template-columns: 2fr 4fr 6fr;
+            margin-top: 25px;
+        }
+        .channel-logo img {
+            border-radius: 60px;
+        }
+        .subscribe-button {
+            float: right;
+            margin-right: 50px;
+            margin-top: 30px;
+            background-color: black;
+            color: white;
+            border: 0;
+            border-radius: 20px;
+            padding: 5px;
+            padding-left: 13px;
+            padding-right: 13px;
+        }
+        .channel-name {
+            font-size: 25px;
+        }
+        .channel-sub{
+            color: grey;
+        }
+        .channel-description{
+            color: grey;
+        }
+        .body-nav {
+            margin-top: 25px;
+        }
+        .body-nav span {
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-bottom: 19px;
+            font-size: 17px;
+            color: grey;
+            font-weight: bold;
+            font-family: calibri light;
+        }
+        .body-nav span a {
+            text-decoration: none;
+            color: #727272;
+        }
+        .body-nav span:hover {
+            border-bottom: 2px solid grey;
+        }
+    </style>    
+</head>
+<body>
+    <header>
+        <div class="youtube-logo">
+            <span class="bi bi-list"></span>
+            <span class="bi bi-youtube" style="color: red;"><span style="color: #222222;"><b>YouTube</b></span></span>
+        </div>
+        <div>
+            <input id="search" class="search" name="   Search" placeholder="Search">
+            <span class="bi bi-search"></span>
+            <span class="bi bi-mic-fill"></span>
+        </div>
+        
+        <div class="search-left-panel">
+            <span class="bi bi-film"></span>
+            <span class="bi bi-bell"></span>
+            <span class="bi bi-person"></span>
+        </div>
+    </header>
+    <!-- <hr size="3" color="gray"> -->
+    <section>
+        <nav>
+            <ul>
+                <li><span class="bi bi-house-door"></span><span>Home</span></li>
+                <li><span class="bi bi-film"></span><span>Shorts</span></li>
+                <li><span class="bi bi-camera-reels"></span><span>Subscriptions</span></li>
+                <hr size="3" color="grey" width="90%">
+                <li><span class="bi bi-collection-play"></span><span>Library</span></li>
+                <li><span class="bi bi-clock-history"></span><span>History</span></li>
+                <li><span class="bi bi-play-btn"></span><span>Your Videos</span></li>
+                <li><span class="bi bi-stopwatch"></span><span>Watch Later</span></li>
+                <li><span class="bi bi-music-note-list"></span><span>Mood</span></li>
+                <li><span class="bi bi-chevron-down"></span><span>ShowMore</span></li>
+                <hr size="3" color="grey" width="90%">
+
+            </ul>
+        </nav>
+        <main>
+            <div>
+                <img src="images/banner.PNG" alt="Channel Banner" width="100%" height="200px">
+            </div>
+            <div class="channel">
+                <div class="channel-logo">
+                    <img src="images/logozee.PNG" alt="Channel Logo">
+                </div>
+                <div class="channel-detail">
+                    <div class="channel-name">Zee News <span class="bi bi-patch-check-fill" style="font-size: 13px;"></span></div>
+                    <div class="channel-sub">@zeenews 31.1M subscribers 181k videos</div>
+                    <div class="channel-description">Zee Media Corporation Ltd (ZMCL), India's largest news network, touches</div>
+                </div>
+                <div class="sub-button">
+                    <button class="subscribe-button">Subscribe</button>
+                </div>
+             </div>
+            <div class="body-nav">
+                <span><a href="">Home</a></span>
+                <span><a href="videos.html" target="mainframe">Videos</a></span>
+                <span>Shorts</span>
+                <span>Live</span>
+                <span>Playlists</span>
+                <span>Community</span>
+                <span>Channels</span>
+                <span>About</span>
+                <span class="bi bi-chevron-right"></span>
+                <hr size="3" color="grey" width="95%">
+            </div>
+            <div>
+                <Div><iframe src="" name="mainframe" width="100%" src="videos.html"></iframe></Div>
+            </div>
+        </main>
+</section>
+</body>
+</html>

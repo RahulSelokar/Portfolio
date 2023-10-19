@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndianHotels.</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <script rel="text/javascript">
+        function validationmodal(msg){
+            const div=document.createElement("div");
+            div.className="alert alert-danger";
+            div.role="alert";
+            document.getElementById("modalcont").innerHTML="";
+            div.innerHTML=msg;
+            document.getElementById("modalcont").appendChild(div);
+            document.getElementById("modalhead").innerHTML="";
+        }
+        function registerbtn(){
+            var custname=document.getElementById("customername").value;
+            var chdate=new Date(`${document.getElementById("checkindate").value}`);
+            var nod=document.getElementById("nodays");
+            var nop=document.getElementById("noperson");
+            
+            var dlx=document.getElementById("dlxroom");
+            var sut=document.getElementById("sutroom");
+            var balance=0;
+            var extrap=0;
+            var rtype="";
+
+            var ac=document.getElementById("ac");
+            var lock=document.getElementById("locker");
+            var aminit="";
+            var advance=document.getElementById("advance").value;
+
+            //Validation---------
+            if(custname=="" || nod.value=="" || nop.value=="" || chdate=="Invalid Date"){
+                validationmodal("Please Fill All Customer Details.");
+            }else if(dlx.checked==false && sut.checked==false){
+                validationmodal("Please Select Room Type");
+            }else if(advance==""){
+                validationmodal("Please Enter Advance Amount");
+            }
+            //----------------------
+            else{
+                if(nop.value>2){
+                    extrap=nop.value-2;
+                    if(dlx.checked){
+                        rtype+="Delux Room";
+                        balance=(2*dlx.value)+(extrap*1000);
+                    }if(sut.checked){
+                        rtype+="Suite Room";
+                        balance=(2*sut.value)+(extrap*1000);
+                    }
+                }else{
+                    if(dlx.checked){
+                        rtype +="Delux Room";
+                        balance=nop.value*dlx.value;
+                    }if(sut.checked){
+                        rtype +="Suite Room";
+                        balance=nop.value*sut.value;
+                    }
+                }
+                if(ac.checked){
+                    balance +=parseInt (ac.value);
+                    aminit="A/C";
+                }
+                if(lock.checked){
+                    balance += parseInt(lock.value);
+                    aminit+=" Locker"
+                }
+                var div=document.createElement("div");
+                document.getElementById("modalhead").innerHTML="Your Registered Details"
+                document.getElementById("modalcont").innerHTML="";
+                div.innerHTML=`
+                        <button>Customer Name</button>: ${custname}<br>
+                        <button>Check in Date</button>: ${chdate.getDate()}-${chdate.getMonth()}-${chdate.getFullYear()}<br>
+                        <button>Total No of Days</button>: ${nod.value}<br>
+                        <button>Total No of Person</button>: ${nop.value}<br>
+                        <button>Room Type</button>: ${rtype}<br>
+                        <button>Amenities</button>: ${aminit}<br>
+                        <button>Advance Amount</button>: ${advance}<br>
+                        <button>Balance Amount</button>: ${(balance*nod.value)-advance}<br>
+                `;
+                document.getElementById("modalcont").appendChild(div);
+            }
+        }
+    </script>
+    <style rel="stylesheet">
+        .acchead{
+            padding: 10px;
+            font-weight: bold;
+            background-color:rgba(255, 255, 255, 0.1) ;
+            border: 1px solid rgba(121, 121, 121, 0.096);
+        }
+        .inputbox{
+            padding: 4px;
+            border: 1px solid rgba(206, 206, 206, 0.801);
+            border-radius: 4px;
+            margin: 0px 0px 10px 20px;
+            width: 200px;
+        }
+        .accordion-body button{
+            border: none;
+            background-color: transparent;
+            cursor: auto;
+            width: 300px;
+            text-align: left;
+        }
+        .modal-body button{
+            border: none;
+            background-color: transparent;
+            cursor: auto;
+            width:auto;
+            font-weight: bold;
+            text-align: left;
+        }
+        body{
+            background:
+            linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)),url('image/back1.jpg');
+            background-size: cover;
+        }
+        .brand{
+            background-color: #383838;
+            color: white
+        }
+        .himg{
+            width: 200px;
+        }
+        @media screen and (max-width:600px) {
+            body{
+                background:rgba(241, 247, 222, 0.795);
+            }
+            .himg{
+                width: 130px;
+            }
+        }
+    </style>
+</head>
+<body class="container-fluid">
+    <header class="brand w-100 mt-2 p-2 rounded-3" >
+        <div class="text-center">
+            <h1>IndianHotels.</h1>
+        </div>
+    </header>
+    <section class="row m-1 p-1">
+        <nav class="col-lg-2">
+            <div class="">
+                <select name="" id="" class="form-select mt-md-2">
+                    <option value="">City</option>
+                    <option value="">Ameerpeth</option>
+                    <option value="">Secunderabad</option>
+                </select>
+                <select name="" id="" class="form-select mt-md-2">
+                    <option value="">Resorts</option>
+                    <option value="">Rajvilla</option>
+                    <option value="">Tiger Resorts</option>
+                </select>
+                <select name="" id="" class="form-select mt-md-2">
+                    <option value="">Hotels</option>
+                </select>
+                
+            </div>
+        </nav>
+        <main class="col mt-2">
+            <div class="accordion" id="acc" >
+                <!--customer info-->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="acchead btn w-100" data-bs-target="#acc1" data-bs-toggle="collapse">Customer Info</button>
+                    </div>
+                    <div class="accordion-collapse collapse " data-bs-parent="#acc" id="acc1">
+                        <div class="accordion-body">
+                            <button >Customer Name :</button><input type="text" id="customername" class="inputbox" required><span class="text-danger fs-5"> *</span><br>
+                            <button >Check in Date :</button><input type="date" id="checkindate" class="inputbox" required><span class="text-danger fs-5"> *</span><br>
+                            <button >Total No of Days :</button><input type="number" id="nodays" class="inputbox"><span class="text-danger fs-5"> *</span><br>
+                            <button>Total No of Person :</button><input type="number" id="noperson" class="inputbox"><span class="text-danger fs-5"> *</span>
+                        </div>
+                    </div>
+                </div>
+                <!--room type-->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="acchead btn w-100" data-bs-target="#acc2" data-bs-toggle="collapse">Select Room Type</button>
+                    </div>
+                    <div class="accordion-collapse collapse " data-bs-parent="#acc" id="acc2"> 
+                        <div class="accordion-body">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <img src="image/super-deluxe-room.jpg" alt="" class="himg rounded-2 m-2" ><br>
+                                    <input type="radio" name="roomtype" id="dlxroom" value="2500">
+                                    <label>Delux Room</label><br><span><b>Rs 2500/-</b></span>
+                                </div>
+                                <div class="col text-center">
+                                    <img src="image/Hotel-suite.jpg" alt="" class="himg rounded-2 m-2"><br>
+                                    <input type="radio" name="roomtype" id="sutroom" value="4000"> 
+                                    <label>Suite Room</label><br><span><b>Rs 4000/-</b></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- item other-->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="acchead btn w-100" data-bs-target="#acc3" data-bs-toggle="collapse">Select Amenities</button>
+                    </div>
+                    <div class="accordion-collapse collapse " data-bs-parent="#acc" id="acc3">
+                        <div class="accordion-body" style="overflow: auto;">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <img src="image/hotel ac.jpg" class="himg rounded-2 m-3" alt=""><br>
+                                    <input type="checkbox" id="ac" value="1000">
+                                    <label>A/C</label><br><span><b>Rs 1000/-</b></span>
+                                </div>
+                                <div class="col text-center">
+                                    <img src="image/locker.jpg" class="himg rounded-2" alt=""><br>
+                                    <input type="checkbox" id="locker" value="300">
+                                    <label>Locker</label><br><span><b>Rs 300/-</b></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Advance amount-->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="acchead btn w-100" data-bs-target="#acc4" data-bs-toggle="collapse">Advance Amount</button>
+                    </div>
+                    <div class="accordion-collapse collapse" data-bs-parent="#acc" id="acc4">
+                        <div class="accordion-body text-center">
+                            <span class="">Advance Amount</span>
+                            <input type="number" class="inputbox" id="advance" required>
+                            <span class="text-danger fs-5">*</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100 text-center">
+                <button class="btn btn-success ps-4 pe-4 m-3" onclick="registerbtn()" id="regbtn" data-bs-toggle="modal" data-bs-target="#final">Register</button>
+            </div>
+        </main>
+        <div class="modal fade" id="final">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 id="modalhead"></h4>
+                        <button class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body" id="modalcont">
+                        <!--AppendChild-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

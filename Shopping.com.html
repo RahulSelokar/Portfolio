@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script type="text/javascript">
+        function getCategory(){
+            fetch("https://fakestoreapi.com/products/categories")
+            .then(function(res){
+                return res.json();
+            })
+            .then(function(categories){
+                categories.unshift("all");
+                categories.map(function(category){
+                    const option=document.createElement("option");
+                    option.text=category.toUpperCase();
+                    option.value=category;
+                    document.getElementById("listcategory").appendChild(option);
+                })
+            })
+        }
+        function LoadProduct(url){
+            document.getElementById("mainarea").innerHTML="";
+            fetch(url)
+            .then(function(res){
+                return res.json();
+            })
+            .then(function(products){
+                products.map(function(item){
+                    const div=document.createElement("div");
+                    div.className="card p-2 m-2";
+                    div.style.width="240px";
+                    div.innerHTML=`
+                    <img class="card-img-top" width="auto" height="150" src="${item.image}">
+                    <div class="card-header overflow-auto" style="height:90px">${item.title}</div>
+                    <div class="card-body">
+                        <dl>
+                            <dt>Price</dt>
+                            <dd>$ ${item.price}<dd>
+                            <dt>Rating</dt>
+                            <dd>${item.rating.rate} <span class="bi bi-star-fill text-success"></span> [${item.rating.count}]</dd>
+                        <dl>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-success w-100" onclick="addcartclick(${item.id})"><span class="bi bi-cart4"></span> Add to Cart</button>
+                    </div>
+                    `;
+                document.getElementById("mainarea").appendChild(div);
+                })
+            })
+        }
+        var cartitem=[];
+        function addcartclick(id){
+            fetch(`https://fakestoreapi.com/products/${id}`)
+            .then(function(res){
+                return res.json();
+            })
+            .then(function(product){
+                cartitem.push(product);
+                alert(`${product.title}\nAdded to Cart`);
+                cartcount();
+            })
+        }
+        function showCart(){
+            document.querySelector("tbody").innerHTML="";
+            cartitem.map(function(item){
+            const tr=document.createElement("tr");
+            const tdPreview=document.createElement("td");
+            const tdTitle=document.createElement("td");
+            const tdPrice=document.createElement("td");
+            tdPreview.innerHTML=`<img width="50" height="50" src=${item.image}>`;
+            tdTitle.innerHTML=item.title;
+            tdPrice.innerHTML=`$${item.price}`;
+            tr.appendChild(tdPreview);
+            tr.appendChild(tdTitle);
+            tr.appendChild(tdPrice);
+            document.querySelector("tbody").appendChild(tr);
+            })
+        }
+        function cartcount(){
+            document.getElementById("cartCount").innerHTML=cartitem.length;
+        }
+        function catChange(){
+            var catvalue=document.getElementById("listcategory").value;
+            if(catvalue=="all"){
+                LoadProduct("https://fakestoreapi.com/products");
+            }else{
+                LoadProduct(`https://fakestoreapi.com/products/category/${catvalue}`);
+            }
+        }
+        function navChange(catvalue){
+            if(catvalue=="all"){
+                LoadProduct("https://fakestoreapi.com/products");
+            }else{
+                LoadProduct(`https://fakestoreapi.com/products/category/${catvalue}`);
+            }
+            document.getElementById("listcategory").value=catvalue;
+        }
+        function clockload(){
+            const todaytime=new Date();
+            const time=todaytime.toLocaleTimeString();
+            document.getElementById("clock").innerHTML=`${time}`;
+        }
+       /* function btnLogin(){
+            fetch("https://fakestoreapi.com/users")
+            .then(function(res){
+                return res.json();
+            })
+            .then(function(crmatch){
+                const user=document.getElementById("txtUser").value;
+                const pass=document.getElementById("txtPass").value;
+                if(crmatch.username==user && crmatch.password==pass){
+                    alert("Login Sucessfully");
+                }
+                else{
+                    alert("Invalid Credentials");
+                }
+            })
+        }       */
+        function onstart(){
+            document.getElementById("listcategory").innerHTML="";
+            getCategory();
+            LoadProduct("https://fakestoreapi.com/products");
+            cartcount();
+            setInterval(clockload,1000);
+        }
+    </script>
+    <style>
+        .cart{
+            height: 90vh;
+            border: 1px solid rgb(216, 215, 215);
+            border-radius: 5px;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+        .NavLink span a{
+            padding: 20px 10px 20px 10px;
+        }
+        .NavLink span a:hover{
+            padding: 20px 10px 20px 10px;
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+<body class="container-fluid" onload="onstart()"> 
+    <nav class="navbar">   
+        <div class="navbar-toggler w-100 bg-dark p-2 d-flex justify-content-between">
+            <span class="navbar-brand rounded-5 text-white ms-2">Shop.com</span>
+            <div class="NavLink mt-2">
+                <span><a href="JavaScript:navChange('all')">Home</a></span>
+                <span><a href="JavaScript:navChange('electronics')">Electronics</a></span>
+                <span><a href="JavaScript:navChange('jewelery')">Jewelery</a></span>
+                <span><a href="JavaScript:navChange('men\'s clothing')">Men's Clothing</a></span>
+                <span><a href="JavaScript:navChange('women\'s clothing')">Women's Clothing</a></span>
+            </div>
+            <div class="d-flex">
+                <div class="mt-1">
+                    <span class="bi bi-heart me-2 text-white"></span>
+                    <button class="bi bi-cart4 btn text-white me-4 position-relative" data-bs-toggle="modal" data-bs-target="#cart" onclick="showCart()">
+                        <span class="badge bg-danger rounded-circle position-absolute" id="cartCount"></span>
+                    </button>
+                    <div class="modal fade" id="cart">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h2>Your Cart</h2>
+                                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table table-hover">
+                                        <thead class="table">
+                                            <tr>
+                                                <th>Preview</th>
+                                                <th>Item</th>
+                                                <th>Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th id="totalPrice"></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <button class="btn btn-outline-success m-1">Make Payment</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-light float-end me-3" data-bs-toggle="modal" data-bs-target="#loginbtn">
+                    <span class="bi bi-person fw-bold"> Login</span>
+                </button>
+                <div class="modal fade" id="loginbtn">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <button class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h3 class="text-center">Login</h3>
+                                <form action="">
+                                    <div class="d-flex mt-4">
+                                        <span class="bi bi-person" style="font-size: 20px;"></span>
+                                        <input type="text" class="form-control ms-2" placeholder="UserName: johnd" id="txtUser">
+                                    </div>
+                                    <div class="d-flex mt-4">
+                                        <span class="bi bi-key" style="font-size: 20px;"></span>
+                                        <input type="password" class="form-control ms-2" placeholder="Password: m38rmF" id="txtPass">
+                                    </div>
+                                    <button class="btn btn-success mt-5 w-100" onclick="btnLogin()">Login</button>
+                                    <div class="d-flex m-3 ms-0">
+                                        <input type="checkbox" class="form-check-input ">
+                                        <div class="ms-2">Remember Me</div>
+                                    </div>
+                                    <a href="">Forgot Password</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="row">
+         <div class="cart col-2 m-2" >
+            <div class="m-2">Select Category</div>
+            <select onchange="catChange()" class="mt-2 form-select" name="" id="listcategory">
+
+            </select>
+        </div>
+        <div class="view col m-2" id="vardview">
+            <div class="d-flex">
+                <div>
+                    <span>Sort By Price</span>
+                    <button class="bi bi-sort-down btn btn-outline-secondary fs-6 m-1" onclick="asdsort()"></button>
+                    <button class="bi bi-sort-up btn btn-outline-secondary fs-6 m-1" onclick="dsdsort()"></button>
+                </div>
+                <div class="m-1 ms-2 w-50">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search Mobile">
+                        <button class="bi bi-search btn btn-warning "></button>
+                    </div>
+                </div> 
+                <div class="mt-2 ms-2" id="clock"></div>
+            </div>
+            <div class="d-flex flex-wrap overflow-auto mt-2" style="height:90vh;" id="mainarea">
+
+            </div>
+        </div>
+        
+    </section>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</body>
+</html>

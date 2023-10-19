@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script type="text/javascript">
+       function loadcountry(){
+        fetch("country_data/countriesStates.json")
+            .then(function(res){
+                return res.json();
+            })
+            .then(function(countriesStates){
+                countriesStates.map(function(cont){
+                    const option = document.createElement("option");
+                    option.value=cont.name;
+                    option.innerHTML=cont.name;
+                    document.getElementById("Country").appendChild(option);
+                })
+            })
+            .catch(function(){
+                alert(`Unable to Fetch - Check the FileName`);
+            })
+       }
+       function loadstate(){
+           const contry=document.getElementById("Country").value;
+           const selectcity={name:"Select City"}
+           fetch("country_data/countriesStates.json")
+            .then(function(res){
+                return res.json();
+            })
+            .then(function(countriesStates){
+                countriesStates.map(function(cont){
+                    if(cont.name==contry){
+                        cont.states.unshift(selectcity);
+                        cont.states.map(function(stat){
+                            const option=document.createElement("option");
+                            option.value=stat.name;
+                            option.innerHTML=stat.name;
+                            document.getElementById("State").appendChild(option);
+                        })
+                    }
+                })
+            })
+       }
+       function loadcity(){
+            var contry=document.getElementById("Country").value;
+            var state=document.getElementById("State").value;
+            fetch("country_data/citiesnameall.json")
+                .then(function(res){
+                    return res.json();
+                })
+                .then(function(citiesname){
+                    citiesname.map(function(cont){
+                        if(cont.name==contry){
+                            cont.states.map(function(stat){
+                                if(stat.name==state){
+                                    stat.cities.map(function(city){
+                                        const option=document.createElement("option");
+                                        option.value=city.name;
+                                        option.innerHTML=city.name;
+                                        document.getElementById("City").appendChild(option);
+                                    })
+                                }
+                            })
+                        }
+                    })
+                })
+       }
+       function loadfood(){
+            document.querySelector("h3").innerHTML="Getting Your Food to you..."
+       }
+       function bodyload(){
+        loadcountry();
+        loadstate();
+        loadcity();
+       }
+    </script>
+</head>
+<body onload="bodyload()"> 
+    <nav class="navbar bg-dark">
+        <div class="d-flex m-2 w-50">
+            <select onchange="loadstate()" id="Country" class="form-select m-2"></select>
+            <select onchange="loadcity()" id="State" class="form-select m-2"></select>
+            <select onchange="loadfood()" id="City" class="form-select m-2"></select>
+        </div>
+    </nav>
+    <main>
+        <div>
+            <h3 class="text-success m-2"></h3>
+        </div>
+    </main>
+</body>
+</html>

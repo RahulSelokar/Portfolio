@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+        body{
+            margin: 0;
+        }
+        main{
+            width: 100%;
+            height: 100vh;
+        }
+        .child-mid{
+            position: absolute;
+            top:20%;
+            left: 50%;
+            transform: translate(-50%,-20%);
+            width: 400px;
+        }
+        .form-fill{
+            padding: 20px;
+        }
+        .mob{
+            margin-bottom: 20px;
+        }
+        .logo{
+            text-align: center;
+        }
+        .main-box{
+            border: 1px solid #DDDDDD;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .submit:hover{
+            background-color: #f7c226;
+            border: 1px solid #f7c226;
+        }
+        .newta{
+            justify-content: center;
+            margin: 10px;
+        }
+        .newta a{
+            color: black;
+        }
+        a{
+            text-decoration: none;
+        }
+        .newta a:hover{
+            text-decoration: underline;
+        }
+        .btn-2{
+            border: 1px solid #DDDDDD;
+        }
+        section{
+            text-align: center;
+        }
+        form div{
+            float: left;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+    <section class="child-mid">
+        <div class="logo">
+            <img src="images/logo.png" alt="" width="120px">
+        </div>
+        <div class="main-box form-fill">
+            <h1>Sign in</h1>
+        <form action="get">
+            <div>Email or mobile phone number</div>
+            <input type="text" name="mobile" class="mob form-control">
+            <button class="submit btn btn-warning w-100">Submit</button>
+        </form>
+            <div>
+                <span>By continuing, you agree to Amazon's Conditions of Use and Privacy Notice.</span>
+                <br><span class="bi bi-caret-right-fill"></span><span><a href="#">Need Help?</a></span>
+            </div>
+        </div>
+        <div class="newta">
+           <div><a href="">New to Amazon?</a></div>
+        </div>
+        <button class="btn-2 btn w-100" >Create Your Amazon account</button>
+        <section>
+            <div>
+                <a href="#">Conditions of Use</a>
+                <a href="#">Privacy Notice</a>
+                <a href="#">Help</a>
+            </div>
+            <div>© 1996-2023, Amazon.com, Inc. or its affiliates</div>
+        </section>
+    </section>
+    </main>
+</body>
+</html>

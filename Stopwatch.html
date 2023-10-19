@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script>
+        var hour=0;
+        var min=0;
+        var sec=0;
+        var mil=0;
+        var lap=[];
+        function loadhour(){
+            hour==23 ? hour=0 : hour++;
+            document.getElementById("hours").innerHTML=hour;
+        }
+        function loadmin(){
+            min==59 ? min=0 : min++;
+           document.getElementById("minutes").innerHTML=min;
+        }
+        function loadsec(){
+            sec==59 ? sec=0 : sec++;
+            document.getElementById("seconds").innerHTML=sec;
+        }
+        function loadmil(){
+            mil==99 ? mil=0 : mil++;
+            document.getElementById("milisec").innerHTML=mil;
+        }
+        function pause(){
+            clearInterval(H);
+            clearInterval(M);
+            clearInterval(S);
+            clearInterval(ML);
+        }
+        function play()
+        {
+            H=setInterval(loadhour, 3600000);
+            M=setInterval(loadmin, 60000);
+            S=setInterval(loadsec, 1000);
+            ML=setInterval(loadmil, 1);
+        }
+        function reset(){
+            pause();
+            document.getElementById("hours").innerHTML="00";
+            document.getElementById("minutes").innerHTML="00";
+            document.getElementById("seconds").innerHTML="00";
+            document.getElementById("milisec").innerHTML="00";
+            hour=0;
+            sec=0;
+            min=0;
+            mil=0;
+        }
+        function loadlap(){
+            document.querySelector("ol").innerHTML="";
+            var hourvalue=document.getElementById("hours").innerHTML;
+            var minvalue=document.getElementById("minutes").innerHTML;
+            var secvalue=document.getElementById("seconds").innerHTML;
+            var milvalue=document.getElementById("milisec").innerHTML;
+            var lapobj={kh:hourvalue,km:minvalue,ks:secvalue,kml:milvalue};
+            lap.push(lapobj);
+            lap.map(function(list){
+                const li=document.createElement("li");
+                const span=document.createElement("span");
+                li.innerHTML=` ${list.kh} : ${list.km} : ${list.ks} : ${list.kml}`;
+                li.appendChild(span);
+                document.querySelector("ol").appendChild(li);
+            })
+        }
+        function deletelap(){
+            document.querySelector("ol").innerHTML="";
+            lap.length=0;
+        }
+    </script>
+    <style>
+        main {
+           min-height: 400px;
+        }
+        #hours, #minutes, #seconds, #milisec{
+            min-width: 90px;
+            font-size: 40px;
+        }
+        .laps{
+            text-align: center;
+        }
+        @media screen and (max-width:650px) {
+            #hours, #minutes, #seconds, #milisec{
+            min-width: 40px;
+            font-size: 25px;
+            margin: 2px;
+        } 
+        .fs-2{
+            display: none;
+        }
+        main{
+            width: 100%;
+        }
+        }
+    </style>
+</head>
+<body class="container-fluid d-flex justify-content-center">
+    <main class="border border-dark-subtle rounded-3 m-2 p-2">
+        <div class="count mt-3 p-3 border border-light-subtle rounded-4 d-flex justify-content-center bg-light">
+            <div><button class="btn m-3" disabled id="hours">00</button><span class="fs-2">:</span></div>
+            <div><button class="btn m-3" disabled id="minutes">00</button><span class="fs-2">:</span></div>
+            <div><button class="btn m-3" disabled id="seconds">00</button><span class="fs-2">:</span></div>
+            <div><button class="btn m-3" disabled id="milisec">00</button></div>
+        </div>
+        <div>
+            <div class="d-flex justify-content-center mt-3">
+                <div>
+                    <button class="bi bi-arrow-counterclockwise btn btn-outline-dark m-1" onclick="reset()"></button>
+                    <button class="bi bi-pause btn btn-dark m-1" onclick="pause()">Pause</button>
+                    <button class="bi bi-play btn btn-success m-1" onclick="play()">Play</button>
+                    <button class="btn btn-outline-success m-1" onclick="loadlap()">Lap</button>
+                </div>
+            </div>
+            <div class="laps">
+                <div class="mt-2">
+                    <span class="">Laps</span>
+                    <span class="bi bi-trash3-fill btn btn-outline-danger ms-2 pt-1 pb-1"  onclick="deletelap()"></span>
+                </div><hr>
+                <div>
+                    <ol id="laplist">
+                        
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

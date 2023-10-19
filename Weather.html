@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="images/logo.jpg">
+    <style>
+        .card{
+            width: 90%;
+            min-height: 470px;
+            max-width:470px;
+            background-color: rgba(0, 0, 0, 0.548);
+            color:#fff;
+            margin:70px auto 0;
+            border-radius:20px;
+            padding:40px 35px;
+            text-align: center;
+        }
+        body{
+            background-size: 100% 100vh;
+            background-image: url(images/OIP.jpg);
+            background-repeat: no-repeat;
+            display: grid;
+            grid-template-columns: 2fr 3fr 2fr;
+            font-family: calibri;
+        }
+        .search{
+            width:100%;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+        .search input{
+            border:0;
+            outline:0;
+            background: white;
+            color:#555;
+            padding:10px 10px;
+            border-radius:30px;
+            flex:1;
+            margin-right:16px;
+            font-size:20px;
+        }
+       .search button{
+            border:0;
+            background:white; 
+            border-radius:50%;  
+            width:50px;
+            height:50px;
+            cursor:pointer;
+        }
+        .city {
+            font-size: 30px;
+            font-family:calibri ;
+            margin: 2px;
+        }
+        .temp {
+            font-size: 50px;
+            margin: 0px;
+        }
+        .bi-search {
+            font-size: 15px;
+        }
+        .weather span{
+            font-size:50px;
+        }
+        .weather {
+            margin-top: 5px;
+        }
+        .card-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .day-card {
+            padding-top:7px;
+            margin: 3px;
+            border: 1px solid rgba(139, 133, 133, 0);
+            display: grid;
+            min-height: 130px;
+            width: 110px;
+            font-size: 20px;
+            background-color: rgba(233, 220, 220, 0.37);
+            color:white;
+            border-radius: 13px;
+        }
+        .content {
+            position: fixed;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: #f1f1f1;
+            width: 100%;
+            padding: 20px;
+            }
+            .left-card {
+                width: 250px;
+                height: 450px;
+                background-color: rgba(0, 0, 0, 0.548);
+                color:#fff;
+                margin:70px auto 0;
+                border-radius:20px;
+                padding:15px;
+                text-align: center;
+                font-size: 18px;
+            }
+            .right-card {
+                width: 250px;
+                height: 450px;
+                background-color: rgba(0, 0, 0, 0.548);
+                color:#fff;
+                margin:70px auto 0;
+                border-radius:20px;
+                padding:15px;
+                text-align: center;
+                font-size: 19px;
+            }
+            hr {
+                width: 85%;
+            }
+            
+            @media screen and (max-width:1000px) {
+                body{
+                    background-size:cover;
+                }
+            }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="left-card">
+            <div class="humid"><div>Today</div><hr size="1"><span>Humidity: 60%</span><br><span>Wind Speed: 10 KMPH</span><br><span>Moisture: 40% </span></div>
+            <div><br>Nearby Location</div><hr size="1">
+            <span>Secudarbad</span><br>27&deg;<br>
+            <span>Rajdurg</span><br>29&deg;<br>
+            <span>Parade Ground</span><br>28&deg;<br>
+        </div>
+    </section>
+    <section>
+       <div class="card">
+            <div class="search">
+                <input type="text" placeholder="Enter city name">
+                <button><span class="bi bi-search"></span></button>
+            </div>
+            <div class="weather">
+            <div>
+                <span class="bi bi-brightness-high-fill" style="color: yellow;"></span>
+                <h1 class="temp">28°C</h1>
+                <h2 class="city">8 Aug</h2>
+                <h2 class="city">Ameerpeth</h2>
+            </div>
+            </div>
+            <div class="card-row">
+                <div class="day-card">6 am<span class="bi bi-sunrise" style="color: yellow;"></span>27&deg;</div>
+                <div class="day-card">9 am<span class="bi bi-cloud-sun-fill" style="color: yellow;"></span>27&deg;</div>
+                <div class="day-card">12 pm<span class="bi bi-brightness-high-fill" style="color: yellow;"></span>28&deg;</div>
+                <div class="day-card">3 pm<span class="bi bi-cloud-lightning-rain-fill" style="color: yellow;"></span>29&deg;</div>
+                <div class="day-card">6 pm<span class="bi bi-sunset" style="color: yellow;"></span>28&deg;</div>
+                <div class="day-card">9 pm<span class="bi bi-cloud-moon" style="color: yellow;"></span>27&deg;</div>
+            </div>
+       </div>
+    </section>
+    <section>
+       <div class="right-card">
+            <div>
+                <span>Today</span><br><span class="bi bi-brightness-high-fill">&nbsp; 28&deg; - 30&deg;</span><hr size="1">
+            </div>
+            <div>
+                <span>Tomorrow</span><br><span class="bi bi-cloud-lightning-rain-fill">&nbsp; 26&deg; - 31&deg;</span>
+            </div><hr size="1">
+            <div>
+                <span>10, Aug</span><br><span class="bi bi-cloud-lightning-rain">&nbsp; 27&deg; - 29&deg;</span>
+            </div><hr size="1">
+            <div>
+                <span>11, Aug</span><br><span class="bi bi-brightness-high-fill">&nbsp; 28&deg; - 30&deg;</span>
+            </div><hr size="1">
+            <div>
+                <span>12, Aug</span><br><span class="bi bi-cloud-lightning-rain">&nbsp; 26&deg; - 29&deg;</span>
+            </div><hr size="1">
+       </div>
+    </section>
+</body>
+</html>
