@@ -16,6 +16,7 @@
         navigator.geolocation.getCurrentPosition(position =>{
             const {latitude, longitude}=position.coords;
             //show a map centered at lant / long
+            const map= document.getElementById("map");
             map.innerHTML='<iframe width="700" height="300" src="https://maps.google.com/maps?q=' + latitude + ','+ longitude +'&amp;z=15&amp;output=embed"></iframe>';
         });
 
